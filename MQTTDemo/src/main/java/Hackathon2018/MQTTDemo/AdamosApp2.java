@@ -10,6 +10,18 @@ import java.util.concurrent.*;
 public class AdamosApp2 {
 
 	public static void main(String[] args) throws Exception {
+		
+		Hue.setHue(50000);
+
+		
+		final QuoteRequestSender requestSender = new QuoteRequestSender();
+
+		requestSender.connect();
+		
+		final QuoteSender quoteSender = new QuoteSender();
+		
+		quoteSender.connect();
+		
 		final String clientId = "1984"; // UUID.randomUUID().toString();
 		System.out.println("Connect with UUID " + clientId);
 		final String serverURI = "tcp://shakeandbake.adamos-dev.com:1883";
@@ -83,7 +95,7 @@ public class AdamosApp2 {
                         
                         if ("buy".equals(eventName)) {
                         	System.out.println("We received a buy event, we need to buy!");
-                        	
+                        	requestSender.sendQuoteRequestWithGroup();	
                         
                         }
 
