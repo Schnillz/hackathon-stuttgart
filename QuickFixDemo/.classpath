@@ -2,16 +2,16 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="C:/Users/kintz/Downloads/org.quickfixj-2.1.0-bin/org.quickfixj-2.1.0/quickfixj-all-2.1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kintz/Downloads/org.quickfixj-2.1.0-bin/org.quickfixj-2.1.0/lib/dom4j-2.1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kintz/Downloads/org.quickfixj-2.1.0-bin/org.quickfixj-2.1.0/lib/jaxen-1.1.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kintz/Downloads/org.quickfixj-2.1.0-bin/org.quickfixj-2.1.0/lib/jcl-over-slf4j-1.7.25.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kintz/Downloads/org.quickfixj-2.1.0-bin/org.quickfixj-2.1.0/lib/je-2.1.30.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kintz/Downloads/org.quickfixj-2.1.0-bin/org.quickfixj-2.1.0/lib/mina-core-2.0.19.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kintz/Downloads/org.quickfixj-2.1.0-bin/org.quickfixj-2.1.0/lib/proxool-0.9.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kintz/Downloads/org.quickfixj-2.1.0-bin/org.quickfixj-2.1.0/lib/proxool-cglib-0.9.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kintz/Downloads/org.quickfixj-2.1.0-bin/org.quickfixj-2.1.0/lib/Saxon-HE-9.8.0-4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kintz/Downloads/org.quickfixj-2.1.0-bin/org.quickfixj-2.1.0/lib/slf4j-api-1.7.25.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kintz/Downloads/org.quickfixj-2.1.0-bin/org.quickfixj-2.1.0/lib/slf4j-jdk14-1.7.25.jar"/>
+	<classpathentry kind="lib" path="lib/dom4j-2.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/jaxen-1.1.6.jar"/>
+	<classpathentry kind="lib" path="lib/jcl-over-slf4j-1.7.25.jar"/>
+	<classpathentry kind="lib" path="lib/je-2.1.30.jar"/>
+	<classpathentry kind="lib" path="lib/mina-core-2.0.19.jar"/>
+	<classpathentry kind="lib" path="lib/proxool-0.9.1.jar"/>
+	<classpathentry kind="lib" path="lib/proxool-cglib-0.9.1.jar"/>
+	<classpathentry kind="lib" path="lib/quickfixj-all-2.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/Saxon-HE-9.8.0-4.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-jdk14-1.7.25.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

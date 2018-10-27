@@ -102,7 +102,7 @@ public class QuoteRequestSender implements Application {
 	}
 
 	public void connect() throws ConfigError, FileNotFoundException, InterruptedException {
-		String settingsFileName = "C:\\workspaces\\Hackathon2018\\QuickFixDemo\\src\\initiator.config";
+		String settingsFileName = "C:\\repositories\\Hackathon2018\\hackathon-stuttgart\\QuickFixDemo\\src\\initiator.config";
 
 		File file = new File(settingsFileName);
 
@@ -163,6 +163,7 @@ public class QuoteRequestSender implements Application {
 		group.setField(new Symbol("BAADERBK"));
 		group.setField(new SecurityID("DE0005140008"));
 		group.setField(new IDSource("4"));
+		group.setField(new SecurityType("OPT"));
 		group.setField(new OrderQty(123));
 		message.addGroup(group);
 

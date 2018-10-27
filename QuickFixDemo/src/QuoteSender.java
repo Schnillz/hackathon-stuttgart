@@ -90,7 +90,7 @@ public class QuoteSender implements Application {
 	}
 	
 	public void connect() throws InterruptedException, FileNotFoundException, ConfigError {
-		String settingsFileName = "C:\\workspaces\\Hackathon2018\\QuickFixDemo\\src\\initiator2.config";
+		String settingsFileName = "C:\\repositories\\Hackathon2018\\hackathon-stuttgart\\QuickFixDemo\\src\\initiator2.config";
 		
 		File file = new File(settingsFileName);
 
