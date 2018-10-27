@@ -37,6 +37,12 @@ public class AdamosApp2 {
 
 		client.publish("s/us", new MqttMessage(("114,c8y_Command,c8y_Configuration").getBytes()));
 
+		client.publish("s/us", new MqttMessage("503,c8y_Command,Irgendeine Nachricht".getBytes()));
+		
+		// To activate push connection
+		client.publish("s/us", new MqttMessage("117,1".getBytes()));
+
+		
 		// listen for operation
 		client.subscribe("s/ds", new IMqttMessageListener() {
 			public void messageArrived(final String topic, final MqttMessage message) throws Exception {
@@ -71,8 +77,11 @@ public class AdamosApp2 {
 					int temperature = 20 + new Random().nextInt(5);
 					client.publish("s/us", new MqttMessage(("211," + temperature).getBytes()));
 					System.out.println(new Date() + " - sent tempreature " + temperature);
+					int alarmLevel = new Random().nextInt(4) + 1;
+					String alarm = "30" + alarmLevel;
+					System.out.println("Send alarm " + alarm);
 					client.publish("s/us",
-							new MqttMessage("303,minorAlarmType,Hello Hackathon Stuttgart 2018".getBytes()));
+							new MqttMessage((alarm + "," + alarmLevel +  "AlarmType,Hello Hackathon Stuttgart 2018").getBytes()));
 					client.publish("s/us",
 							new MqttMessage("400,HackathonEvent,It is late at night".getBytes()));
 					client.publish("s/us",
@@ -81,6 +90,6 @@ public class AdamosApp2 {
 					e.printStackTrace();
 				}
 			}
-		}, 1, 3, TimeUnit.SECONDS);
+		}, 1, 7, TimeUnit.SECONDS);
 	}
 }
