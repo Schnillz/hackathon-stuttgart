@@ -80,6 +80,12 @@ public class AdamosApp2 {
                         //  if ()
 
                         // }
+                        
+                        if ("buy".equals(eventName)) {
+                        	System.out.println("We received a buy event, we need to buy!");
+                        	
+                        
+                        }
 
                         float eventNumberValue = Float.parseFloat(eventValue);
 

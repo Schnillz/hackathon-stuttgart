@@ -64,41 +64,41 @@ public class QuoteRequestSender implements Application {
 
 	@Override
 	public void onCreate(SessionID sessionID) {
-		System.out.println("OnCreate");
+		System.out.println(this.getClass().getName() + " OnCreate");
 	}
 
 	@Override
 	public void onLogon(SessionID sessionID) {
-		System.out.println("OnLogon");
+		System.out.println(this.getClass().getName() + " OnLogon");
 		QuoteRequestSender.sessionID = sessionID;
 	}
 
 	@Override
 	public void onLogout(SessionID sessionID) {
-		System.out.println("OnLogout");
+		System.out.println(this.getClass().getName() + " OnLogout");
 		QuoteRequestSender.sessionID = null;
 	}
 
 	@Override
 	public void toAdmin(Message message, SessionID sessionID) {
-		System.out.println("ToAdmin");
+		System.out.println(this.getClass().getName() + " ToAdmin");
 	}
 
 	@Override
 	public void fromAdmin(Message message, SessionID sessionID)
 			throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue, RejectLogon {
-		System.out.println("FromAdmin");
+		System.out.println(this.getClass().getName() + " FromAdmin");
 	}
 
 	@Override
 	public void toApp(Message message, SessionID sessionID) throws DoNotSend {
-		System.out.println("ToApp: " + message);
+		System.out.println(this.getClass().getName() + " ToApp: " + message);
 	}
 
 	@Override
 	public void fromApp(Message message, SessionID sessionID)
 			throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue, UnsupportedMessageType {
-		System.out.println("FromApp");
+		System.out.println(this.getClass().getName() + " FromApp");
 	}
 
 	public void connect() throws ConfigError, FileNotFoundException, InterruptedException {
@@ -152,13 +152,23 @@ public class QuoteRequestSender implements Application {
 		
 		System.out.println("Build quote request message");
 		
+		Hue.setHue(10000);
+		
 		Message message = new Message();
 		Header header = message.getHeader();
 		header.setField(new BeginString("FIX.4.2"));
 		header.setField(new MsgType("R"));
 		header.setField(new SenderCompID("BAADER"));
 		header.setField(new TargetCompID("CATSOS"));
+		header.setField(new DeliverToCompID("CITIDE"));
 
+		// QuoteReqID
+		String quoteRequestID = "HackStuttgart" + System.currentTimeMillis();
+		message.setString(131 , quoteRequestID);
+		// NoRelatedSym
+		message.setString(146 , "1");
+
+		
 		Group group = new Group(146, 55);
 		group.setField(new Symbol("BAADERBK"));
 		group.setField(new SecurityID("DE0005140008"));
@@ -168,6 +178,13 @@ public class QuoteRequestSender implements Application {
 		message.addGroup(group);
 
 		try {
+			
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
 			Session.sendToTarget(message, sessionID);
 			
 			System.out.println("Sent quote request message");

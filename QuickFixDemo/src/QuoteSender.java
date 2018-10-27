@@ -3,11 +3,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import quickfix.Application;
+import quickfix.BytesField;
 import quickfix.ConfigError;
 import quickfix.DefaultMessageFactory;
 import quickfix.DoNotSend;
 import quickfix.FieldNotFound;
 import quickfix.FileStoreFactory;
+import quickfix.Group;
 import quickfix.IncorrectDataFormat;
 import quickfix.IncorrectTagValue;
 import quickfix.Initiator;
@@ -22,25 +24,34 @@ import quickfix.SessionID;
 import quickfix.SessionNotFound;
 import quickfix.SessionSettings;
 import quickfix.SocketInitiator;
+import quickfix.StringField;
 import quickfix.UnsupportedMessageType;
+import quickfix.Message.Header;
+import quickfix.field.BeginString;
 import quickfix.field.BidPx;
+import quickfix.field.BidSize;
 import quickfix.field.ClOrdID;
 import quickfix.field.ContractMultiplier;
+import quickfix.field.DeliverToCompID;
 import quickfix.field.HandlInst;
 import quickfix.field.IDSource;
 import quickfix.field.MaturityDay;
 import quickfix.field.MaturityMonthYear;
+import quickfix.field.MsgType;
 import quickfix.field.NoRelatedSym;
 import quickfix.field.OfferPx;
 import quickfix.field.OfferSize;
+import quickfix.field.OnBehalfOfCompID;
 import quickfix.field.OrdType;
 import quickfix.field.OrderQty;
 import quickfix.field.QuoteReqID;
 import quickfix.field.SecurityDesc;
 import quickfix.field.SecurityID;
 import quickfix.field.SecurityType;
+import quickfix.field.SenderCompID;
 import quickfix.field.Side;
 import quickfix.field.Symbol;
+import quickfix.field.TargetCompID;
 import quickfix.field.TransactTime;
 import quickfix.fix42.NewOrderSingle;
 import quickfix.fix42.Quote;
@@ -48,6 +59,8 @@ import quickfix.fix42.QuoteRequest;
 
 public class QuoteSender implements Application {
 
+	private boolean quoteSent = false;
+	
 	private static volatile SessionID sessionID;
 
 	@Override
@@ -80,13 +93,49 @@ public class QuoteSender implements Application {
 
 	@Override
 	public void toApp(Message message, SessionID sessionID) throws DoNotSend {
-		System.out.println("ToApp: " + message);
+		System.out.println(this.getClass().getName() + " ToApp: " + message);
+		
+		try {
+			StringField sf = message.getField(new QuoteReqID());
+			System.out.println("Quote request ID was " + sf.getValue());
+			
+			//sendQuoteWithGroup(sf.getValue());
+		} catch (FieldNotFound e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
 	public void fromApp(Message message, SessionID sessionID)
 			throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue, UnsupportedMessageType {
-		System.out.println("FromApp");
+		System.out.println(this.getClass().getName() + " FromApp: " + message.toString());
+		
+		try {
+		//	StringField sf = message.getField(new QuoteReqID());
+		//	System.out.println("Request ID was " + sf.getValue());
+			
+			StringField sfOBO = message.getHeader().getField(new OnBehalfOfCompID());
+
+			String onBehalf = sfOBO.getValue();
+			
+		//	String onBehalf = message.getString(115);
+			
+			System.out.println("onBehalf " + onBehalf);
+			
+			if (onBehalf.equals("7540")) {
+		
+				System.out.println("So we send a quote message...");
+
+				sendQuoteWithGroup("NewQuoteID");
+
+			} else {
+				System.out.println("Ignore also this message");
+			}
+		} catch (FieldNotFound e) {
+		//	e.printStackTrace();
+			System.out.println("Ignore this message");
+		}
 	}
 	
 	public void connect() throws InterruptedException, FileNotFoundException, ConfigError {
@@ -113,6 +162,54 @@ public class QuoteSender implements Application {
 		System.out.println("SessionID is now " + sessionID);
 	}
 	
+	public void sendQuoteWithGroup(String quoteId) {
+		System.out.println("Build quote message");
+		
+		Message message = new Message();
+		Header header = message.getHeader();
+		header.setField(new BeginString("FIX.4.2"));
+		header.setField(new MsgType("S"));
+		header.setField(new SenderCompID("CITIFFT"));
+		header.setField(new TargetCompID("CATSOS"));
+
+		// QuoteReqID
+		message.setString(131 , quoteId);
+		
+		message.setField(new QuoteReqID(quoteId));
+		message.setField(new Symbol("BAADERBK"));
+		message.setField(new SecurityID("DE0005140008"));
+		message.setField(new IDSource("4"));
+		message.setField(new SecurityType("OPT"));
+		message.setField(new MaturityMonthYear("205012"));
+		message.setField(new MaturityDay("31"));
+		message.setField(new ContractMultiplier(1));
+		message.setField(new SecurityDesc("DE0005140008"));
+		message.setField(new BidPx(123.56));
+		message.setField(new OfferPx(134.56));
+		message.setField(new BidSize(10));
+		message.setField(new OfferSize(12));
+
+		try {
+
+				Session.sendToTarget(message, sessionID);
+				System.out.println("Sent quote message");
+
+			Hue.setHue(10000, 220);
+			
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			Hue.setHue(20000);
+			
+		} catch (SessionNotFound e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Deprecated
 	public void sendQuote() throws SessionNotFound {
 		QuoteReqID quoteReqID = new QuoteReqID("HackathonStuttgart-1234");
 		
