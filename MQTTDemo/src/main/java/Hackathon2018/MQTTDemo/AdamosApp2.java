@@ -57,10 +57,37 @@ public class AdamosApp2 {
 					System.out.println("...done...");
 				} else if (payload.startsWith("511")) {
 					try {
-						String setHueto = payload.substring(payload.lastIndexOf(",") + 1);
-						int newHue = Integer.parseInt(setHueto);
-						System.out.println("Set hue to " + newHue);
-						Hue.setHue(newHue);
+						String[] eventPayload = payload.split(",");
+
+                        String[] event = eventPayload[2].split("jjj");
+
+                        String eventValue = event[0];
+
+                        String eventName = event[1];
+
+                        
+
+                        System.out.println("eventValue: " + eventValue);
+
+                        System.out.println("eventName: " + eventName);
+
+                        
+
+                        // String setHueto = payload.substring(payload.lastIndexOf(",") + 1);
+
+                        // if (eventName.equals("roll")) {
+
+                        //  if ()
+
+                        // }
+
+                        float eventNumberValue = Float.parseFloat(eventValue);
+
+                        int newHue = Math.round(eventNumberValue);
+
+                        System.out.println("Set hue to " + newHue);
+
+                        Hue.setHue(newHue);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
