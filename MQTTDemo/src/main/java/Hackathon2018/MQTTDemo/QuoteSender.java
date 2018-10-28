@@ -108,7 +108,7 @@ public class QuoteSender implements Application {
 				System.out.println("So we send a quote message...");
 
 				try {
-					Thread.sleep(2000);
+					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -144,7 +144,7 @@ public class QuoteSender implements Application {
 		initiator.start();
 
 		while (sessionID == null) {
-			Thread.sleep(1000);
+			Thread.sleep(500);
 		}
 		
 		System.out.println("SessionID is now " + sessionID);
@@ -180,7 +180,7 @@ public class QuoteSender implements Application {
 		try {
 
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -191,7 +191,7 @@ public class QuoteSender implements Application {
 			//	Hue.setHue(10000, 250);
 				
 				try {
-					Thread.sleep(3000);
+					Thread.sleep(300);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -199,12 +199,12 @@ public class QuoteSender implements Application {
 				Hue.setHue(Hue.GREEN);
 				
 				try {
-					Thread.sleep(3000);
+					Thread.sleep(300);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 				
-				Hue.setHue(Hue.VIOLET);
+				Hue.setHue(Hue.VIOLET, 10);
 
 			
 		} catch (SessionNotFound e) {
@@ -256,12 +256,12 @@ public class QuoteSender implements Application {
 
 
 		
-		Thread.sleep(5000);
+		Thread.sleep(500);
 
 //		app2.sendQuote();
 
 		
-		Thread.sleep(5000);
+		Thread.sleep(500);
 	}
 
 }

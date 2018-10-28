@@ -16,7 +16,11 @@ public class Hue {
 private static final String URL = "http://172.16.12.253/api/ttvXHFpFCdbabaRrGurhTikoAIGSgwk1sZ2rkBTk/lights/2/state";
 	
 public static void setHue(int hue, int bri) {
-	String body = "{\"on\":true, \"sat\":254, \"bri\":" + bri + ",\"hue\":"+ hue + "}";
+	setHue(hue, bri, true);
+}
+
+public static void setHue(int hue, int bri, boolean state) {
+	String body = "{\"on\":" + state + ", \"sat\":254, \"bri\":" + bri + ",\"hue\":"+ hue + "}";
 	
 	System.out.println("Set hue to hue = " + hue + " and bri = " + bri);
 	

@@ -91,7 +91,7 @@ public class QuoteRequestSender implements Application {
 		initiator.start();
 
 		while (sessionID == null) {
-			Thread.sleep(1000);
+			Thread.sleep(500);
 		}
 
 		System.out.println("SessionID is now " + sessionID);
@@ -201,7 +201,7 @@ public class QuoteRequestSender implements Application {
 
 		app.sendQuoteRequestWithGroup();
 
-		Thread.sleep(5000);
+		Thread.sleep(500);
 	}
 
 }

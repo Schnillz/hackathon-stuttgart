@@ -11,7 +11,7 @@ public class AdamosApp2 {
 
 	public static void main(String[] args) throws Exception {
 		
-		Hue.setHue(Hue.VIOLET);
+		Hue.setHue(Hue.VIOLET, 10);
 
 		
 		final QuoteRequestSender requestSender = new QuoteRequestSender();
@@ -94,6 +94,22 @@ public class AdamosApp2 {
                         // }
                         
                         if ("buy".equals(eventName)) {
+                        	
+                        	try {
+                        		int num = Integer.parseInt(eventValue);
+                        		num = Math.min(14, num);
+                        		if (num > 1 && num < 15) {
+                        			boolean state = false;
+                        			for (int i=0; i<num; i++) {
+                        				Hue.setHue(Hue.YELLOW, 100, state);
+                        				state = !state;
+                        				Thread.sleep(400);
+                        			}
+                        		}
+                        	} catch (Exception e) {
+                        		e.printStackTrace();
+                        	}
+                        	
                         	System.out.println("We received a buy event, we need to buy!");
                         	requestSender.sendQuoteRequestWithGroup();	
                         
@@ -121,12 +137,12 @@ public class AdamosApp2 {
 					// 211 = temperature
 					int temperature = 20 + new Random().nextInt(5);
 					client.publish("s/us", new MqttMessage(("211," + temperature).getBytes()));
-					System.out.println(new Date() + " - sent tempreature " + temperature);
+			//		System.out.println(new Date() + " - sent tempreature " + temperature);
 					int alarmLevel = new Random().nextInt(4) + 1;
 					String alarm = "30" + alarmLevel;
-					System.out.println("Send alarm " + alarm);
-					client.publish("s/us",
-							new MqttMessage((alarm + "," + alarmLevel +  "AlarmType,Hello Hackathon Stuttgart 2018").getBytes()));
+		//			System.out.println("Send alarm " + alarm);
+		//			client.publish("s/us",
+			//				new MqttMessage((alarm + "," + alarmLevel +  "AlarmType,Hello Hackathon Stuttgart 2018").getBytes()));
 					client.publish("s/us",
 							new MqttMessage("400,HackathonEvent,It is late at night".getBytes()));
 					client.publish("s/us",
