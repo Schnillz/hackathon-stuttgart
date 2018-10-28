@@ -107,6 +107,14 @@ public class QuoteSender implements Application {
 		
 				System.out.println("So we send a quote message...");
 
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				Hue.setHue(Hue.BLUE, 255);
+				
 				sendQuoteWithGroup("NewQuoteID");
 
 			} else {
@@ -171,10 +179,16 @@ public class QuoteSender implements Application {
 
 		try {
 
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
 				Session.sendToTarget(message, sessionID);
 				System.out.println("Sent quote message");
 
-				Hue.setHue(10000, 220);
+			//	Hue.setHue(10000, 250);
 				
 				try {
 					Thread.sleep(3000);
@@ -182,7 +196,15 @@ public class QuoteSender implements Application {
 					e.printStackTrace();
 				}
 
-				Hue.setHue(20000);
+				Hue.setHue(Hue.GREEN);
+				
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				Hue.setHue(Hue.VIOLET);
 
 			
 		} catch (SessionNotFound e) {

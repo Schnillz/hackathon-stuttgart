@@ -11,7 +11,7 @@ public class AdamosApp2 {
 
 	public static void main(String[] args) throws Exception {
 		
-		Hue.setHue(50000);
+		Hue.setHue(Hue.VIOLET);
 
 		
 		final QuoteRequestSender requestSender = new QuoteRequestSender();
@@ -99,13 +99,13 @@ public class AdamosApp2 {
                         
                         }
 
-                        float eventNumberValue = Float.parseFloat(eventValue);
+ //                       float eventNumberValue = Float.parseFloat(eventValue);
 
-                        int newHue = Math.round(eventNumberValue);
-
-                        System.out.println("Set hue to " + newHue);
-
-                        Hue.setHue(newHue);
+//                        int newHue = Math.round(eventNumberValue);
+//
+//                        System.out.println("Set hue to " + newHue);
+//
+//                        Hue.setHue(newHue);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

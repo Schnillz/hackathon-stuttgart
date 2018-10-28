@@ -125,8 +125,7 @@ public class QuoteRequestSender implements Application {
 		
 		System.out.println("Build quote request message");
 		
-		Hue.setHue(10000);
-
+		Hue.setHue(Hue.YELLOW);
 		
 		Message message = new Message();
 		Header header = message.getHeader();
