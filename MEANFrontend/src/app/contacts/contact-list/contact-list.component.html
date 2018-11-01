@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="container-fluid">
+    <h2>Stock Market, Events {{events}}</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Symbol</th>
+          <th scope="col">Company</th>
+          <th scope="col">Last Price</th>
+          <th scope="col">Change</th>
+          <th scope="col">% Change</th>
+          <th scope="col">Volume</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contact of contacts" (click)="selectContact(contact)" [class.active]="contact === selectedContact">
+          <td>{{contact.symbol}}</td>
+          <td>{{contact.companyName}}</td>
+          <td>{{contact.lastPrice}}</td>
+          <td>{{contact.change}}</td>
+          <td>{{contact.percentageNumber}}</td>
+          <td>{{contact.volume}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <button class="btn btn-warning" (click)="createNewContact()">New</button> -->
+  </div>
+  <!-- <div class="col-md-5 col-md-offset-2">
+    <contact-details
+      [contact]="selectedContact"
+      [createHandler]="addContact"
+      [updateHandler]="updateContact"
+      [deleteHandler]="deleteContact">
+    </contact-details>
+  </div> -->
+</div>
